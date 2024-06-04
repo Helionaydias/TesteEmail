@@ -14,6 +14,7 @@ fun getAllEmails(): List<Email> {
             time = "15:46",
             isleia = false
         ),
+
         Email(
             id = 2,
             remetente = "Giovana Gusmão da Silva",
@@ -44,6 +45,7 @@ fun getAllEmails(): List<Email> {
             time = "01:54",
             isleia = true
         )
+
     )
 }
 fun getEmailsByRemetente(remetente: String): List<Email>{

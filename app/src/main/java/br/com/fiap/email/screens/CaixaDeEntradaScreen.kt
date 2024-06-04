@@ -10,6 +10,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,12 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -38,9 +43,10 @@ import br.com.fiap.email.model.Email
 import br.com.fiap.email.repository.getAllEmails
 import br.com.fiap.email.repository.getEmailsByRemetente
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CaixaDeEntradaScreen(navController: NavController) {
-
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     var remetenteState by remember {
         mutableStateOf("")
     }
@@ -62,23 +68,77 @@ fun CaixaDeEntradaScreen(navController: NavController) {
     }
 
     Scaffold(
+
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+
+        topBar = {
+            CenterAlignedTopAppBar(
+
+                colors = TopAppBarDefaults.topAppBarColors(
+                        Color(0xFF253746)
+                ),
+
+                title = {
+                    Text("Caixa de entrada",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFF5F6F7),
+                        fontFamily = PoppinsBold
+                    )
+                },
+
+
+
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate("caixadeentrada") }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "ícone menu",
+                            tint = Color(0xFFF5F6F7),
+
+                        )
+                    }
+                },
+
+                actions = {
+                    IconButton(onClick = { /* do something */ }) {
+                        Icon(
+                            painter = painterResource(id =R.drawable.notifications_none_24),
+                            contentDescription = "ícone notificação",
+                            tint = Color(0xFFF5F6F7),
+
+                        )
+                    }
+                },
+
+                scrollBehavior = scrollBehavior,
+
+            )
+
+
+        },
+
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("mensagem") },
                 containerColor = Color(0xFFF00843),
                 contentColor = Color.White,
                 shape = CircleShape,
+                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
                 modifier = Modifier
-                    .padding(16.dp)
                     .size(80.dp)
+
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.pencil),
-                    contentDescription = "Ícone Novo email",
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-        },
+                Icon(painter = painterResource(id = R.drawable.pencil),
+                contentDescription = "Ícone Novo email",
+               modifier = Modifier.size(24.dp)
+              )
+
+        }
+
+},
         content = { innerPadding ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,44 +147,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                     .background(Color(0xFF253746))
                     .padding(innerPadding)
             ) {
-                // Cabeçalho
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(
-                        onClick = { navController.navigate("menucaixadeentrada") }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.menu_24),
-                            contentDescription = "Menu",
-                            tint = Color(0xFFFFFFFF),
-                            modifier = Modifier.size(40.dp)
-                        )
-                    }
-
-                    Text(
-                        text = "Caixa de entrada",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFFF5F6F7),
-                        fontFamily = PoppinsBold
-                    )
-
-                    IconButton(onClick = { /* TODO */ }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.notifications_none_24),
-                            contentDescription = "Notificações",
-                            tint = Color(0xFFFFFFFF),
-                            modifier = Modifier.size(width = 29.dp, height = 24.dp)
-                        )
-                    }
-                }
-
-
+                Spacer(modifier = Modifier.height(22.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -175,7 +198,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                                 painter = painterResource(id = R.drawable.search_24),
                                 contentDescription = "Buscar",
                                 tint = Color.White,
-                                modifier = Modifier.size(24.dp)
+                                modifier = Modifier.size(34.dp)
                             )
                         }
 
@@ -231,7 +254,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
 
 
                             Button(
-                                onClick = { /* TODO: Implement others action */ },
+                                onClick = { },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xffDBE1E7),
                                     contentColor = Color(0xFF253746)
@@ -257,7 +280,11 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                 ) {
                     
                     items( listEmailByRemetente){
-                       EmailCard(email = it)
+                       EmailCard(
+                           email = it,
+
+
+                           )
                     }
                 }
 
@@ -280,12 +307,14 @@ fun EmailCard(email: Email) {
                 .background(Color(0xFFF00843)),
             contentAlignment = Alignment.Center
         ) {
+
             Text(
                 text = email.remetente.first().toString(),
                 textAlign = TextAlign.Center,
                 fontSize = 17.sp,
                 color = Color(0xffF5F6F7)
             )
+
         }
         Spacer(modifier = Modifier.width(8.dp))
         Column(
