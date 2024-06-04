@@ -1,8 +1,6 @@
 package br.com.fiap.email.screens
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,58 +9,41 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.R
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.fiap.email.ui.theme.PoppinsBold
-import br.com.fiap.email.ui.theme.PoppinsMedium
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -133,20 +114,107 @@ fun MensagemScreen(navController: NavController) {
                 )
 
 
+
+
+
             },
 
+            bottomBar = {
+                BottomAppBar(
+                   modifier = Modifier.background(Color.Yellow),
+                    containerColor = Color(0xff25384A),
+                    actions = {
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(Icons.Filled.Add, "Localized description",
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xffF00843)),
+                                tint = Color(0xffFFFFFF),
+                            )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                painter = painterResource(id = br.com.fiap.email.R.drawable.attach),
+                                contentDescription = "Buscar",
+                                tint = Color(0xff30CAE3),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
 
+                        IconButton(onClick = { /* do something */ }) {
 
+                       Icon(
+                           painter = painterResource(id = br.com.fiap.email.R.drawable.camera),
+                           contentDescription = "Buscar",
+                           tint = Color(0xff30CAE3),
+                           modifier = Modifier.size(24.dp)
+                        )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                            painter = painterResource(id = br.com.fiap.email.R.drawable.align_left),
+                            contentDescription = "Buscar",
+                            tint =  Color(0xff30CAE3),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                            painter = painterResource(id = br.com.fiap.email.R.drawable.align_justify),
+                            contentDescription = "Buscar",
+                            tint =  Color(0xff30CAE3),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+
+                            Icon(
+                                painter = painterResource(id = br.com.fiap.email.R.drawable.align_right),
+                                contentDescription = "Buscar",
+                                tint =  Color(0xff30CAE3),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                painter = painterResource(id = br.com.fiap.email.R.drawable.bold),
+                                contentDescription = "Buscar",
+                                tint = Color(0xff30CAE3),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                painter = painterResource(id = br.com.fiap.email.R.drawable.italic),
+                                contentDescription = "Buscar",
+                                tint = Color(0xff30CAE3),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+
+                        IconButton(onClick = { /* do something */ }) {
+                            Icon(
+                                painter = painterResource(id = br.com.fiap.email.R.drawable.underline),
+                                contentDescription = "Buscar",
+                                tint = Color(0xff30CAE3),
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
+                )
+            },
         ) { innerPadding ->
-            Box ( modifier = Modifier
+            Box( modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .imePadding()
+
             ){
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-
+                        .background(Color.Green)
 
                 ) {
                     TextField(
@@ -181,15 +249,19 @@ fun MensagemScreen(navController: NavController) {
                         placeholder = {
                             Text(text = "Para:")
                         },
+
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Color(0xFF172938)),
+                            .background(Color.Magenta),
                         colors = TextFieldDefaults.colors(
                             unfocusedIndicatorColor = Color(0xff172938),
                             focusedIndicatorColor = Color.Transparent,
                             cursorColor = Color(0xffF5F6F7),
-                            unfocusedPlaceholderColor = Color(0xffF5F6F7)
+                            unfocusedPlaceholderColor = Color(0xffF5F6F7),
+
+
                         ),
+
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email,
                             imeAction = ImeAction.Next
@@ -287,65 +359,9 @@ fun MensagemScreen(navController: NavController) {
 
                 }
 
-                BottomAppBar(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .background(Color(0xFF172938))
-                        .imePadding()
-                        .navigationBarsPadding(),
-                    actions = {
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.attach),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.camera),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.align_left),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.align_justify),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.align_right),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.bold),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.italic),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
-                        Icon(
-                            painter = painterResource(id = br.com.fiap.email.R.drawable.underline),
-                            contentDescription = "Buscar",
-                            tint = Color.White,
-                            modifier = Modifier.size(34.dp)
-                        )
 
 
-                    }
-                )
+
             }
         }
 
