@@ -75,7 +75,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
             CenterAlignedTopAppBar(
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                        Color(0xFF253746)
+                    Color(0xFF253746)
                 ),
 
                 title = {
@@ -92,13 +92,13 @@ fun CaixaDeEntradaScreen(navController: NavController) {
 
 
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("caixadeentrada") }) {
+                    IconButton(onClick = { navController.navigate("menucaixadeentrada") }) {
                         Icon(
                             imageVector = Icons.Filled.Menu,
                             contentDescription = "ícone menu",
                             tint = Color(0xFFF5F6F7),
 
-                        )
+                            )
                     }
                 },
 
@@ -109,13 +109,13 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                             contentDescription = "ícone notificação",
                             tint = Color(0xFFF5F6F7),
 
-                        )
+                            )
                     }
                 },
 
                 scrollBehavior = scrollBehavior,
 
-            )
+                )
 
 
         },
@@ -132,13 +132,13 @@ fun CaixaDeEntradaScreen(navController: NavController) {
 
             ) {
                 Icon(painter = painterResource(id = R.drawable.pencil),
-                contentDescription = "Ícone Novo email",
-               modifier = Modifier.size(24.dp)
-              )
+                    contentDescription = "Ícone Novo email",
+                    modifier = Modifier.size(24.dp)
+                )
 
-        }
+            }
 
-},
+        },
         content = { innerPadding ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -220,7 +220,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                             contentColor = Color(0xFFFFFFFF)
                         ),
 
-                    ) {
+                        ) {
                         Text(
                             "Filtrar",
                             fontSize = 14.sp
@@ -264,7 +264,7 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                                     text = "Outros",
                                     fontSize = 14.sp,
 
-                                )
+                                    )
                             }
                         }
                     }
@@ -278,13 +278,13 @@ fun CaixaDeEntradaScreen(navController: NavController) {
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                 ) {
-                    
+
                     items( listEmailByRemetente){
-                       EmailCard(
-                           email = it,
+                        EmailCard(
+                            email = it,
 
 
-                           )
+                            )
                     }
                 }
 

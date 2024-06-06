@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     ){
                         composable(route = "caixadeentrada"){CaixaDeEntradaScreen(navController)}
                         composable(route = "menucaixadeentrada"){PerfilScreen(navController)}
-                        composable(route = "mensagem"){ MensagemScreen(navController)}
+                        composable(route = "mensagem"){ MensagemScreen(navController, this@MainActivity)}
                     }
                 }
             }
