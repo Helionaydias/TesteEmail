@@ -11,17 +11,20 @@ import br.com.fiap.email.model.Email
 interface EmailDao {
 
     @Insert
-    fun salvar(email: Email): Long
+    suspend fun salvar(email: Email): Long
 
     @Update
-    fun atualizar(email: Email): Int
+    suspend fun atualizar(email: Email): Int
 
     @Delete
-    fun excluir(email: Email): Int
+    suspend fun excluir(email: Email): Int
 
     @Query("SELECT * FROM tbl_emails ORDER BY remetente ASC")
-    fun listarTodosOsEmails(): List<Email>
+    suspend fun listarTodosOsEmails(): List<Email>
 
     @Query("SELECT * FROM tbl_emails WHERE id = :id")
-    fun buscarEmailPeloId(id: Long): Email
+    suspend fun buscarEmailPeloId(id: Long): Email
+
+    @Query("SELECT * FROM tbl_emails WHERE remetente LIKE :remetente ORDER BY remetente ASC")
+    suspend fun getEmailsByRemetente(remetente: String): List<Email>
 }

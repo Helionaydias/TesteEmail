@@ -1,32 +1,22 @@
 package br.com.fiap.email.repository
 
 import android.content.Context
-import br.com.fiap.email.dao.EstoqueDb
+import br.com.fiap.email.dao.EmailDb
 import br.com.fiap.email.model.Email
 
 class EmailRepository(context: Context) {
 
-    //Conecta com o banco de dados
-    //injetar o objeto que representa o banco de dados
+    private val db = EmailDb.getDataBase(context).emailDao()
 
-    private val db = EstoqueDb.getDataBase(context).emailDao()
+    suspend fun salvar(email: Email): Long = db.salvar(email)
 
+    suspend fun atualizar(email: Email): Int = db.atualizar(email)
 
-    fun salvar(email: Email): Long = db.salvar(email)
+    suspend fun listarTodosOsEmails(): List<Email> = db.listarTodosOsEmails()
 
-    fun atualizar(email: Email):Int{
-        return  db.atualizar(email)
-    }
-    fun listarTodosOsEmails(): List<Email> {
-        return db.listarTodosOsEmails()
-    }
-    fun buscarEmailPeloId(id: Long): Email = db.buscarEmailPeloId(id)
+    suspend fun buscarEmailPeloId(id: Long): Email = db.buscarEmailPeloId(id)
 
-    fun excluir(email: Email): Int = db.excluir(email)
+    suspend fun excluir(email: Email): Int = db.excluir(email)
 
-
-
-
-
-
+    suspend fun getEmailsByRemetente(remetente: String): List<Email> = db.getEmailsByRemetente(remetente)
 }
