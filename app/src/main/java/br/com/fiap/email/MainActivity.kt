@@ -13,7 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.fiap.email.screens.CadastroScreen
 import br.com.fiap.email.screens.CaixaDeEntradaScreen
+import br.com.fiap.email.screens.InicialScreen
+import br.com.fiap.email.screens.LoginScreen
 import br.com.fiap.email.screens.MensagemScreen
 import br.com.fiap.email.screens.PerfilScreen
 import br.com.fiap.email.ui.theme.EmailTheme
@@ -36,9 +39,12 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = "caixadeentrada"
+                        startDestination = "inicial"
 
                     ){
+                        composable(route = "inicial") { InicialScreen(navController) }
+                        composable(route = "login") { LoginScreen(navController) }
+                        composable(route = "cadastro") { CadastroScreen(navController) }
                         composable(route = "caixadeentrada"){CaixaDeEntradaScreen(navController)}
                         composable(route = "menucaixadeentrada"){PerfilScreen(navController)}
                         composable(route = "mensagem"){ MensagemScreen(navController, this@MainActivity)}

@@ -2,14 +2,37 @@ package br.com.fiap.email.screens
 
 import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -21,10 +44,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import br.com.fiap.email.repository.EmailRepository
 import br.com.fiap.email.model.Email
+import br.com.fiap.email.repository.EmailRepository
 import br.com.fiap.email.ui.theme.PoppinsBold
+import br.com.fiap.email.viewModel.MensagemViewModel
+import br.com.fiap.email.viewModel.MensagemViewModelFactory
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +58,7 @@ import kotlinx.coroutines.launch
 fun MensagemScreen(navController: NavController, context: Context) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val emailRepository = EmailRepository(context)
+    val viewModel: MensagemViewModel = viewModel(factory = MensagemViewModelFactory(emailRepository))
     val coroutineScope = rememberCoroutineScope()
 
     var textfield by remember { mutableStateOf("") }
@@ -40,12 +67,10 @@ fun MensagemScreen(navController: NavController, context: Context) {
     var textfield4 by remember { mutableStateOf("") }
     var textfield5 by remember { mutableStateOf("") }
     var showCcAndCco by remember { mutableStateOf(false) }
-    val imePadding = WindowInsets.ime.asPaddingValues()
 
     Scaffold(
         modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .padding(imePadding),
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -74,7 +99,7 @@ fun MensagemScreen(navController: NavController, context: Context) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        coroutineScope.launch {//cria um novo email e salva no banco de dados
+                        coroutineScope.launch {
                             val email = Email(
                                 remetente = "seu_email@dominio.com",
                                 assunto = textfield,
@@ -84,8 +109,11 @@ fun MensagemScreen(navController: NavController, context: Context) {
                                 time = "10:00",
                                 isleia = false
                             )
-                            emailRepository.salvar(email)
-                            navController.navigate("caixadeentrada")
+                            viewModel.salvarEmail(email, onSuccess = {
+                                navController.navigate("caixadeentrada")
+                            }, onError = { e ->
+                                // Tratar erro
+                            })
                         }
                     }) {
                         Icon(
@@ -101,7 +129,7 @@ fun MensagemScreen(navController: NavController, context: Context) {
         },
         bottomBar = {
             BottomAppBar(
-                modifier = Modifier.padding(1.dp),
+                modifier = Modifier.imePadding(),
                 containerColor = Color(0xff25384A),
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
@@ -192,6 +220,7 @@ fun MensagemScreen(navController: NavController, context: Context) {
                 .fillMaxSize()
                 .padding(innerPadding)
                 .background(Color(0xFF253746))
+                .imePadding() // Apply IME padding to the whole content
         ) {
             TextField(
                 value = textfield,
