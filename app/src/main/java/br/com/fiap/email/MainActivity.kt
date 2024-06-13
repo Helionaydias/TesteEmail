@@ -6,19 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import br.com.fiap.email.screens.CadastroScreen
-import br.com.fiap.email.screens.CaixaDeEntradaScreen
-import br.com.fiap.email.screens.InicialScreen
-import br.com.fiap.email.screens.LoginScreen
-import br.com.fiap.email.screens.MensagemScreen
-import br.com.fiap.email.screens.PerfilScreen
+import br.com.fiap.email.screens.*
 import br.com.fiap.email.ui.theme.EmailTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,15 +23,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
-
-
                     val navController = rememberNavController()
-
-
                     NavHost(
                         navController = navController,
-                        startDestination = "inicial"
+                        startDestination = "calendar" // Ajuste para iniciar na tela de calendário
 
                     ){
                         composable(route = "inicial") { InicialScreen(navController) }
@@ -48,10 +35,10 @@ class MainActivity : ComponentActivity() {
                         composable(route = "caixadeentrada"){CaixaDeEntradaScreen(navController)}
                         composable(route = "menucaixadeentrada"){PerfilScreen(navController)}
                         composable(route = "mensagem"){ MensagemScreen(navController, this@MainActivity)}
+                        composable(route = "calendar") { CalendarScreen(navController) } // Nova rota para a tela de calendário
                     }
                 }
             }
         }
     }
 }
-
