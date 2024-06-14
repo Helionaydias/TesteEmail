@@ -26,16 +26,16 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = "calendar" // Ajuste para iniciar na tela de calendário
-
-                    ){
+                        startDestination = "addEvent" // Ajuste para iniciar na tela de adicionar evento
+                    ) {
                         composable(route = "inicial") { InicialScreen(navController) }
                         composable(route = "login") { LoginScreen(navController) }
                         composable(route = "cadastro") { CadastroScreen(navController) }
-                        composable(route = "caixadeentrada"){CaixaDeEntradaScreen(navController)}
-                        composable(route = "menucaixadeentrada"){PerfilScreen(navController)}
-                        composable(route = "mensagem"){ MensagemScreen(navController, this@MainActivity)}
-                        composable(route = "calendar") { CalendarScreen(navController) } // Nova rota para a tela de calendário
+                        composable(route = "caixadeentrada") { CaixaDeEntradaScreen(navController) }
+                        composable(route = "menucaixadeentrada") { PerfilScreen(navController) }
+                        composable(route = "mensagem") { MensagemScreen(navController, this@MainActivity) }
+                        composable(route = "calendar") { CalendarScreen(navController) }
+                        composable(route = "addEvent") { AddEventScreen(navController) } // Nova rota para a tela de adicionar evento
                     }
                 }
             }

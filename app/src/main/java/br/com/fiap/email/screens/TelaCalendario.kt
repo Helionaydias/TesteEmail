@@ -194,7 +194,7 @@ fun CalendarGrid(navController: NavController, currentMonth: YearMonth) {
                 }
                 Box(
                     modifier = Modifier
-                        .padding(2.dp)
+
                         .size(50.dp)
                         .background(
                             color = specialDayColor,
