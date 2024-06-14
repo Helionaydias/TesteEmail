@@ -377,7 +377,7 @@ fun DescricaoTextField(value: String, onValueChange: (String) -> Unit) {
         },
         leadingIcon = {
             Icon(
-                painter = painterResource(id = R.drawable.evento),
+                painter = painterResource(id = R.drawable.descricao),
                 contentDescription = "Descrição",
                 modifier = Modifier.size(22.dp),
                 tint = Color(0xff009DB7)
